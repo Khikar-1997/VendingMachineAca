@@ -3,6 +3,7 @@ package com.company;
 import java.util.Objects;
 
 public class Comand {
+
     //region Propertys
 
     private String row;
@@ -67,4 +68,5 @@ public class Comand {
     }
 
     //endregion
+
 }

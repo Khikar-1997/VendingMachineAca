@@ -1,6 +1,7 @@
 package com.company;
 
 public class Converter {
+
     public static Comand convertInputComand(String text){
         String[] textArray = text.split(":");
         String textPart1 = textArray[0];
@@ -10,4 +11,5 @@ public class Converter {
         comand.setCollons(Integer.parseInt(textPart2));
         return comand;
     }
+
 }

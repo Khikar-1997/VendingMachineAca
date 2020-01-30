@@ -3,6 +3,7 @@ package com.company;
 import java.util.Objects;
 
 public abstract class Product {
+
     //region Propertys
 
     private String name;

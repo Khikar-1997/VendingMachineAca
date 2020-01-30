@@ -10,5 +10,6 @@ public class Main {
         Comand comand = Converter.convertInputComand(text);
         VendingMachine vendingMachine = new VendingMachine();
         System.out.println(vendingMachine.getProduct(comand));
+        System.out.println("size = " + vendingMachine.sizeOfProductCollon(comand));
     }
 }

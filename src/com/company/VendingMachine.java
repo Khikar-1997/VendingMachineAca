@@ -10,14 +10,12 @@ import com.company.juice.CocaCola;
 import com.company.juice.Fanta;
 import com.company.juice.Pepsi;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public class VendingMachine {
     //region Propertys
 
-    private HashMap<String, ArrayList<Product>> vendingMachineProducts;
+    private HashMap<String, ArrayList<Queue<Product>>> vendingMachineProducts;
 
     //endregion
 
@@ -33,52 +31,82 @@ public class VendingMachine {
     //region Public Methods
 
     private void init() {
-        ArrayList<Product> chips = new ArrayList<>();
+        ArrayList<Queue<Product>> chips = new ArrayList<>();
+        Queue<Product> layses = new LinkedList<>();
+        Queue<Product> doritoses = new LinkedList<>();
+        Queue<Product> pringleses = new LinkedList<>();
         Lays lays = new Lays("Lays");
         Doritos doritos = new Doritos("Doritos");
         Pringles pringles = new Pringles("Pringles");
-        chips.add(lays);
-        chips.add(doritos);
-        chips.add(pringles);
+        for (int i = 0; i < 10; i++) {
+            layses.add(lays);
+            doritoses.add(doritos);
+            pringleses.add(pringles);
+        }
+        chips.add(layses);
+        chips.add(doritoses);
+        chips.add(pringleses);
 
-        ArrayList<Product> juice = new ArrayList<>();
+
+        ArrayList<Queue<Product>> juice = new ArrayList<>();
+        Queue<Product> pepsiCollon = new LinkedList<>();
+        Queue<Product> cocaColaCollon = new LinkedList<>();
+        Queue<Product> fantaCollon = new LinkedList<>();
         Pepsi pepsi = new Pepsi("Pepsi");
         CocaCola cocaCola = new CocaCola("Coca cola");
         Fanta fanta = new Fanta("Fanta");
-        juice.add(pepsi);
-        juice.add(cocaCola);
-        juice.add(fanta);
+        for (int i = 0; i < 10; i++) {
+            pepsiCollon.add(pepsi);
+            cocaColaCollon.add(cocaCola);
+            fantaCollon.add(fanta);
+        }
+        juice.add(pepsiCollon);
+        juice.add(cocaColaCollon);
+        juice.add(fantaCollon);
 
-        ArrayList<Product> chocolate = new ArrayList<>();
+        ArrayList<Queue<Product>> chocolate = new ArrayList<>();
+        Queue<Product> snickersCollon = new LinkedList<>();
+        Queue<Product> kitkatCollon = new LinkedList<>();
+        Queue<Product> twixCollon = new LinkedList<>();
         Snickers snickers = new Snickers("Snickers");
         Kitkat kitkat = new Kitkat("Kitkat");
         Twix twix = new Twix("Twix");
-        chocolate.add(snickers);
-        chocolate.add(kitkat);
-        chocolate.add(twix);
+        for (int i = 0; i < 10; i++) {
+            snickersCollon.add(snickers);
+            kitkatCollon.add(kitkat);
+            twixCollon.add(twix);
+        }
+        chocolate.add(snickersCollon);
+        chocolate.add(kitkatCollon);
+        chocolate.add(twixCollon);
 
         vendingMachineProducts.put("A", chips);
-        vendingMachineProducts.put("B",juice);
-        vendingMachineProducts.put("C",chocolate);
+        vendingMachineProducts.put("B", juice);
+        vendingMachineProducts.put("C", chocolate);
     }
 
-    public Product getProduct(Comand comand){
-        if (vendingMachineProducts.containsKey(comand.getRow())){
-            return vendingMachineProducts.get(comand.getRow()).get(comand.getCollons() - 1);
-        } else {
-            throw new RuntimeException("Reload program");
-        }
-    }
 
     //endregion
 
+    public Product getProduct(Comand comand) {
+        if (vendingMachineProducts.containsKey(comand.getRow())) {
+            vendingMachineProducts.get(comand.getRow()).get(comand.getCollons() - 1).remove();
+            return vendingMachineProducts.get(comand.getRow()).get(comand.getCollons() - 1).element();
+        } else {
+            throw new RuntimeException("reload program");
+        }
+    }
+
+    public int sizeOfProductCollon(Comand comand) {
+        return vendingMachineProducts.get(comand.getRow()).get(comand.getCollons() - 1).size();
+    }
     //region Getter and Setter
 
-    public HashMap<String, ArrayList<Product>> getVendingMachineProducts() {
+    public HashMap<String, ArrayList<Queue<Product>>> getVendingMachineProducts() {
         return vendingMachineProducts;
     }
 
-    public void setVendingMachineProducts(HashMap<String, ArrayList<Product>> vendingMachineProducts) {
+    public void setVendingMachineProducts(HashMap<String, ArrayList<Queue<Product>>> vendingMachineProducts) {
         this.vendingMachineProducts = vendingMachineProducts;
     }
 
